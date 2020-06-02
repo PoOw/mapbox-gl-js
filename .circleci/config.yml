@@ -3,6 +3,7 @@ jobs:
   build:
     docker: 
       - image: circleci/node:10.16-browsers 
+    working_directory: ~/mapbox-gl-js
     steps:
       - checkout
       - run: yarn
@@ -15,4 +16,6 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ];
               then yarn run build-prod; yarn deploy;
             fi
-      
+      - store_artifacts:
+          path: test/integration/expression-tests/index.html
+
